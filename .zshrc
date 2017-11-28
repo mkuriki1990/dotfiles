@@ -199,6 +199,7 @@ export LC_ALL="ja_JP.UTF-8"
 # Mac OS X 用の設定群
 export LSCOLORS=gxfxcxdxbxegedabagacad
 alias ls='ls -Gh'
+alias grep='grep --color=auto'
 # export PATH=$PATH:/usr/local/Cellar/imagemagick/6.9.0-10/bin
 
 # ターミナルのタイトルに "ユーザ名 @ ホスト名 : カレントパス" を表示
