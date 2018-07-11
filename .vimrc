@@ -100,7 +100,7 @@ if exists('&ambiwidth')
 endif
 
 " underline of cursor
-set relativenumber number
+set norelativenumber number
 set nocursorline
 " set cursorcolumn
 
