@@ -101,7 +101,7 @@ endif
 
 " underline of cursor
 set relativenumber number
-set cursorline
+set nocursorline
 " set cursorcolumn
 
 " コマンド補間
