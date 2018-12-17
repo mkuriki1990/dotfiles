@@ -1,0 +1,1 @@
+export CONFDIR=$HOME/.dotfiles

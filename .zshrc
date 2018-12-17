@@ -7,6 +7,8 @@ setopt extended_history
 # history に同じ内容が連続するのを避ける
 setopt HIST_IGNORE_DUPS
 
+
+
 bindkey -v
 # End of lines configured by zsh-newuser-install
 # The following lines were added by compinstall
@@ -196,12 +198,6 @@ esac
 export LC_ALL="ja_JP.UTF-8"
 
 
-# Mac OS X 用の設定群
-export LSCOLORS=gxfxcxdxbxegedabagacad
-alias ls='ls -Gh'
-alias grep='grep --color=auto'
-# export PATH=$PATH:/usr/local/Cellar/imagemagick/6.9.0-10/bin
-
 # ターミナルのタイトルに "ユーザ名 @ ホスト名 : カレントパス" を表示
 case "${TERM}" in
 kterm*|xterm*)
@@ -215,19 +211,27 @@ kterm*|xterm*)
   ;;
 esac
 
-export ANDROID_SDK_ROOT=/Applications/Android/sdk
-export NDK_ROOT=/Applications/Android/ndk
-export ANT_ROOT=/Applications/Android/ant/bin
-export PATH=$PATH:$NDK_ROOT:$ANDROID_SDK_ROOT:$ANDROID_SDK_ROOT/tools:$ANDROID_SDK_ROOT/platform-tools:$ANT_ROOT
-
-# Add environment variable COCOS_CONSOLE_ROOT for cocos2d-x
-export COCOS_CONSOLE_ROOT=/Users/mkuriki/Desktop/cocos2d-x-3.9/tools/cocos2d-console/bin
-export PATH=$COCOS_CONSOLE_ROOT:$PATH
-
-# Add environment variable COCOS_TEMPLATES_ROOT for cocos2d-x
-export COCOS_TEMPLATES_ROOT=/Users/mkuriki/Desktop/cocos2d-x-3.9/templates
-export PATH=$COCOS_TEMPLATES_ROOT:$PATH
-
 # vi を vim に
 alias vi=vim
 
+alias ks='printf "
+      人
+    （＿）
+ ＼（＿＿）／ ｳﾝｺｰ!
+ （ ・∀・ ）
+\n" 2> /dev/null '
+
+# OS のタイプによって設定ファイルを使い分ける
+case ${OSTYPE} in
+	darwin*)
+		# ここに Mac 向けの設定
+        [ -f $CONFDIR/.zshrc_darwin ] && source $CONFDIR/.zshrc_darwin
+		;;
+	linux*)
+		# ここに Linux 向けの設定
+        [ -f $CONFDIR/.zshrc_linux ] && source $CONFDIR/.zshrc_linux
+		;;
+esac
+
+# マシンごとの設定を読み込む. zshrc_local が存在すれば読み込むし, なければ何もしない
+[ -f $CONFDIR/.zshrc_local ] && source $CONFDIR/.zshrc_local

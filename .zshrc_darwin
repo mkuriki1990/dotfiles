@@ -1,0 +1,5 @@
+# macOS 用の設定群
+export LSCOLORS=gxfxcxdxbxegedabagacad
+alias ls='ls -Gh'
+alias grep='grep --color=auto'
+# export PATH=$PATH:/usr/local/Cellar/imagemagick/6.9.0-10/bin
