@@ -225,11 +225,11 @@ alias ks='printf "
 case ${OSTYPE} in
 	darwin*)
 		# ここに Mac 向けの設定
-        [ -f $CONFDIR/.zshrc_darwin ] && source $CONFDIR/.zshrc_darwin
+        [ -f $CONFDIR/zshrc_darwin ] && source $CONFDIR/zshrc_darwin
 		;;
 	linux*)
 		# ここに Linux 向けの設定
-        [ -f $CONFDIR/.zshrc_linux ] && source $CONFDIR/.zshrc_linux
+        [ -f $CONFDIR/zshrc_linux ] && source $CONFDIR/zshrc_linux
 		;;
 esac
 
