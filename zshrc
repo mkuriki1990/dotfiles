@@ -60,20 +60,6 @@ alias zmv='noglob zmv -W'
 
 # End of lines added by compinstall
 
-
-# プロンプトの表示設定
-autoload colors
-colors
-PROMPT="%{$fg_bold[black]$bg[green]%}%n@%m:%2~%(!.#.$) %{$reset_color%}"
-PROMPT2="%{$fg[green]%}%_> %{$reset_color%}"
-SPROMPT="%{$fg_bold[red]$bg[white]%}correct: %R -> %r [nyae]? %{$reset_color%}"
-# RPROMPT="%{$fg[white]$bg[cyan]%}[%~]%{$reset_color%}"
-RPROMPT="%{$fg_bold[black]$bg[white]%}[%D %*]%{$reset_color%}"
-
-# プロンプトをカラー表示する
-# setopt prompt_subst
-# PROMPT=$'%{\e[1;34m%}[%n@%m:%~ ]%{\e[0m%} '
-
 # 入力補完の候補をカラー表示する
 # zmodload zsh/complist
 # export ZLS_COLORS='di=01;34'
@@ -235,3 +221,85 @@ esac
 
 # マシンごとの設定を読み込む. zshrc_local が存在すれば読み込むし, なければ何もしない
 [ -f $CONFDIR/zshrc_local ] && source $CONFDIR/zshrc_local
+
+#######################
+# プロンプトの表示設定はじまり
+# マシンごとのローカル色設定を読み込んでから設定したいので, 
+# ファイル末尾に記載
+# zshrc_local に
+## export PROMPT_COLOR_FRONT="black"
+## export PROMPT_COLOR_BACK="green"
+# を設定する必要がある
+#
+
+### プロンプトバーの左側
+###   %{%B%}...%{%b%}: 「...」を太字にする。
+###   %{%F{cyan}%}...%{%f%}: 「...」をシアン色の文字にする。
+###   %n: ユーザ名
+###   %m: ホスト名（完全なホスト名ではなくて短いホスト名）
+###   %{%B%F{white}%(?.%K{green}.%K{red})%}%?%{%f%k%b%}:
+###                           最後に実行したコマンドが正常終了していれば
+###                           太字で白文字で緑背景にして異常終了していれば
+###                           太字で白文字で赤背景にする。
+###   %{%F{white}%}: 白文字にする。
+###     %(x.true-text.false-text): xが真のときはtrue-textになり
+###                                偽のときはfalse-textになる。
+###       ?: 最後に実行したコマンドの終了ステータスが0のときに真になる。
+###       %K{green}: 緑景色にする。
+###       %K{red}: 赤景色を赤にする。
+###   %?: 最後に実行したコマンドの終了ステータス
+###   %{%k%}: 背景色を元に戻す。
+###   %{%f%}: 文字の色を元に戻す。
+###   %{%b%}: 太字を元に戻す。
+prompt_bar_left_self="[%{%B%K{${PROMPT_COLOR_BACK}}%F{${PROMPT_COLOR_FRONT}}%}%n%{%b%}@%{%B%}%m%{%f%k%b%}]"
+prompt_bar_left_status="(%{%B%F{black}%(?.%K{green}.%K{red})%}%?%{%k%f%b%})"
+prompt_bar_left_path="[%{%B%K{${PROMPT_COLOR_BACK}}%F{${PROMPT_COLOR_FRONT}}%}%d%{%f%k%b%}]-" # カレントディレクトリのプロンプト
+prompt_bar_left="-${prompt_bar_left_self}-${prompt_bar_left_path}-${prompt_bar_left_status}"
+
+### プロンプトバーの右側
+###   %D{%Y/%m/%d %H:%M}: 日付。「年/月/日 時:分」というフォーマット。
+prompt_bar_date="%{%B%}%D{%Y/%m/%d %H:%M:%S}%{%b%}"
+
+### 2行目左にでるプロンプト。
+###   %h: ヒストリ数。
+###   %(1j,(%j),): 実行中のジョブ数が1つ以上ある場合だけ「(%j)」を表示。
+###     %j: 実行中のジョブ数。
+###   %{%B%}...%{%b%}: 「...」を太字にする。
+###   %#: 一般ユーザなら「%」、rootユーザなら「#」になる。
+prompt_left="-[%h]%(1j,(%j),)%{%B%}%#%{%b%} "
+
+## バージョン管理システムの情報も表示する
+autoload -Uz vcs_info
+zstyle ':vcs_info:*' formats \
+    '(%{%F{red}%K{green}%}%s%{%f%k%})-[%{%F{red}%K{blue}%}%b%{%f%k%}]'
+zstyle ':vcs_info:*' actionformats \
+    '(%{%F{red}%K{green}%}%s%{%f%k%})-[%{%F{red}%K{blue}%}%b%{%f%k%}|%{%F{white}%K{red}%}%a%{%f%k%}]'
+
+## プロンプトを更新する。
+update_prompt()
+{
+    # プロンプトバーと左プロンプトを設定
+    #   "${bar_left}${bar_right}": プロンプトバー
+    #   $'\n': 改行
+    #   "${prompt_left}": 2行目左のプロンプト
+    PROMPT="${prompt_bar_left}"$'\n'"${prompt_left}"
+    # 右プロンプト
+    #   %{%B%F{black}%K{yellow}}...%{%k%f%b%}:
+    #       「...」を太字で黒背景の黄文字にする。
+    #   %~: カレントディレクトリのフルパス（可能なら「~」で省略する）
+    RPROMPT="[%{%B%F{black}%K{yellow}%}${prompt_bar_date}%{%k%f%b%}]"
+
+    # バージョン管理システムの情報を取得する。
+    LANG=C vcs_info >&/dev/null
+    # バージョン管理システムの情報があったら右プロンプトに表示する。
+    if [ -n "$vcs_info_msg_0_" ]; then
+        RPROMPT="${vcs_info_msg_0_}-${RPROMPT}"
+    fi
+}
+
+## コマンド実行前に呼び出されるフック。
+precmd_functions=($precmd_functions update_prompt)
+
+#
+# プロンプトの表示設定おわり
+#######################
