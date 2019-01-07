@@ -1,12 +1,18 @@
-# Lines configured by zsh-newuser-install
+################################
+# コマンド履歴に関する設定 ここから
+# 
 HISTFILE=~/.histfile
 HISTSIZE=10000000000000
 SAVEHIST=10000000000000
-# history の一覧を読みやすい形に変更
+# history の時刻と実行時間を追加
 setopt extended_history
 # history に同じ内容が連続するのを避ける
 setopt HIST_IGNORE_DUPS
-
+# 頭にスペースを入れることでコマンド履歴を残さない
+setopt HIST_IGNORE_SPACE
+# 
+# コマンド履歴に関する設定 ここまで
+################################
 
 
 bindkey -v
@@ -73,7 +79,9 @@ export LS_COLORS='di=34:ln=35:so=32:pi=33:ex=31:bd=46;34:cd=43;34:su=41;30:sg=46
 # ファイル補完候補に色を付ける
 zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
 
+################################
 # zsh で特殊なキーを動作させる設定 ここから
+# 
 
 # create a zkbd compatible hash;
 # to add other keys to this hash, see: man 5 terminfo
@@ -116,10 +124,14 @@ if (( ${+terminfo[smkx]} )) && (( ${+terminfo[rmkx]} )); then
     zle -N zle-line-finish
 fi
 
+# 
 # zsh で特殊なキーを動作させる設定 ここまで
+################################
 
-
+################################
 # ディレクトリ移動履歴を残す設定 ここから
+# 
+
 DIRSTACKFILE="$HOME/.cache/zsh/dirs"
 if [[ -f $DIRSTACKFILE ]] && [[ $#dirstack -eq 0 ]]; then
   dirstack=( ${(f)"$(< $DIRSTACKFILE)"} )
@@ -140,7 +152,10 @@ setopt PUSHD_IGNORE_DUPS
 
 ## This reverts the +/- operators.
 setopt PUSHDMINUS
+
+# 
 # ディレクトリ移動履歴を残す設定 ここまで
+################################
 
 # 補完時に大文字と小文字を区別しない
 zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z}'
@@ -151,9 +166,6 @@ setopt NO_NO_MATCH
 # グロッピング
 setopt EXTENDED_GLOB
 
-# 頭にスペースを入れることでコマンド履歴を残さない
-setopt HIST_IGNORE_SPACE
-
 # 補完システム
 zstyle ':completion:*' verbose yes
 zstyle ':completion:*:descriptions' format '%B%d%b'
@@ -161,7 +173,18 @@ zstyle ':completion:*:messages' format '%d'
 zstyle ':completion:*:warnings' format 'No matches for: %d'
 zstyle ':completion:*' group-name ''
 
-# コマンドラインスタックの vi モードにおける設定
+## --prefix=~/localというように「=」の後でも
+## 「~」や「=コマンド」などのファイル名展開を行う。
+setopt magic_equal_subst
+
+## 実行したプロセスの消費時間が3秒以上かかったら
+## 自動的に消費時間の統計情報を表示する。
+REPORTTIME=3
+
+###################################### 
+# コマンドラインスタックの vi モードにおける設定はじまり
+# 
+
 show_buffer_stack() {
   POSTDISPLAY="
 stack: $LBUFFER"
@@ -170,6 +193,10 @@ stack: $LBUFFER"
 zle -N show_buffer_stack
 setopt NO_FLOW_CONTROL
 bindkey '^Q' show_buffer_stack
+
+# 
+# コマンドラインスタックの vi モードにおける設定おわり
+###################################### 
 
 # コマンドやファイル名を訂正してくれる
 setopt CORRECT
@@ -199,6 +226,8 @@ esac
 
 # vi を vim に
 alias vi=vim
+# git を g に
+alias g=git
 
 alias ks='printf "
       人
@@ -231,6 +260,11 @@ esac
 ## export PROMPT_COLOR_BACK="green"
 # を設定する必要がある
 #
+
+## PROMPT内で変数展開・コマンド置換・算術演算を実行する。
+setopt prompt_subst
+## PROMPT内で「%」文字から始まる置換機能を有効にする。
+setopt prompt_percent
 
 ### プロンプトバーの左側
 ###   %{%B%}...%{%b%}: 「...」を太字にする。
