@@ -234,4 +234,4 @@ case ${OSTYPE} in
 esac
 
 # マシンごとの設定を読み込む. zshrc_local が存在すれば読み込むし, なければ何もしない
-[ -f $CONFDIR/.zshrc_local ] && source $CONFDIR/.zshrc_local
+[ -f $CONFDIR/zshrc_local ] && source $CONFDIR/zshrc_local
