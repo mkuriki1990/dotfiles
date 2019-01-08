@@ -1,5 +1,16 @@
-# macOS 逕ｨ縺ｮ險ｭ螳夂ｾ､
-export LSCOLORS=gxfxcxdxbxegedabagacad
-alias ls='ls -Gh'
-alias grep='grep --color=auto'
 # export PATH=$PATH:/usr/local/Cellar/imagemagick/6.9.0-10/bin
+#
+# autoload -U compinit
+compinit
+
+# macOS 用の色設定
+export LSCOLORS=exfxcxdxbxegedabagacad
+export LS_COLORS='di=34:ln=35:so=32:pi=33:ex=31:bd=46;34:cd=43;34:su=41;30:sg=46;30:tw=42;30:ow=43;30'
+
+alias ls="ls -GF"
+alias gls="gls --color"
+alias grep='grep --color=auto'
+
+# zsh の補完機能における色づけ
+zstyle ':completion:*' list-colors 'di=34' 'ln=35' 'so=32' 'ex=31' 'bd=46;34' 'cd=43;34'
+
