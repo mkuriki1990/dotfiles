@@ -285,7 +285,9 @@ setopt prompt_percent
 ###   %{%k%}: 背景色を元に戻す。
 ###   %{%f%}: 文字の色を元に戻す。
 ###   %{%b%}: 太字を元に戻す。
-prompt_bar_left_self="[%{%B%K{${PROMPT_COLOR_BACK}}%F{${PROMPT_COLOR_FRONT}}%}%n%{%b%}@%{%B%}%m%{%f%k%b%}]"
+###
+###   ${VAR:=hoge}: シェル変数 VAR が未定義の場合 hoge を代入する.
+prompt_bar_left_self="[%{%B%K{${PROMPT_COLOR_BACK:=black}}%F{${PROMPT_COLOR_FRONT:=white}}%}%n%{%b%}@%{%B%}%m%{%f%k%b%}]"
 prompt_bar_left_status="(%{%B%F{black}%(?.%K{green}.%K{red})%}%?%{%k%f%b%})"
 prompt_bar_left_path="[%{%B%K{${PROMPT_COLOR_BACK}}%F{${PROMPT_COLOR_FRONT}}%}%d%{%f%k%b%}]-" # カレントディレクトリのプロンプト
 prompt_bar_left="-${prompt_bar_left_self}-${prompt_bar_left_path}-${prompt_bar_left_status}"
