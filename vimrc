@@ -127,6 +127,9 @@ highlight ZenkakuSpace cterm=underline ctermbg=red guibg=#666666
 au BufWinEnter * let w:m3 = matchadd("ZenkakuSpace", '　')
 au WinEnter * let w:m3 = matchadd("ZenkakuSpace", '　')
 
+" ビープ音の停止
+set belloff=all
+
 " タブ幅の設定
 set shiftwidth=4
 set tabstop=4
