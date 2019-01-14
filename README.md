@@ -19,16 +19,16 @@ mklink.sh を実行してホームディレクトリに設定ファイルのシ�
 
 ### Vim のプラグインマネージャ NeoBundle のインストール
 以下のコマンドを実行して NeoBundle をインストールしておく. 
-`curl -sf https://raw.githubusercontent.com/Shougo/neobundle.vim/master/bin/install.sh | sh -s`
+```curl -sf https://raw.githubusercontent.com/Shougo/neobundle.vim/master/bin/install.sh | sh -s```
 (ホントは違うプラグインマネージャに乗り換えたい...)
 
-### zsh_local の作成
+zsh_local の作成
 各環境毎に Zsh のプロンプトの色の設定を変えたいので, 
 * zshrc_local
 を作成する. 具体的には以下のシェル変数を指定する. 
-`export PROMPT_COLOR_FRONT="black"`
-`export PROMPT_COLOR_BACK="green"`
+```export PROMPT_COLOR_FRONT="black"```
+```export PROMPT_COLOR_BACK="green"```
 これらの値はデフォルトでは
-`export PROMPT_COLOR_FRONT="white"`
-`export PROMPT_COLOR_BACK="black"`
+```export PROMPT_COLOR_FRONT="white"```
+```export PROMPT_COLOR_BACK="black"```
 に設定されている. その他, ローカルに必要な設定 ($PATH の指定など) があればここに記述する. 
