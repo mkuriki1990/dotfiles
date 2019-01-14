@@ -24,7 +24,7 @@ curl -sf https://raw.githubusercontent.com/Shougo/neobundle.vim/master/bin/insta
 ```
 (ホントは違うプラグインマネージャに乗り換えたい...)
 
-### zsh_local の作成
+### zshrc_local の作成
 各環境毎に異なる設定を書いておくファイル
 
 * zshrc_local
