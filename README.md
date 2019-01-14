@@ -26,7 +26,9 @@ curl -sf https://raw.githubusercontent.com/Shougo/neobundle.vim/master/bin/insta
 
 ### zsh_local の作成
 各環境毎に異なる設定を書いておくファイル
-    * zshrc_local
+
+* zshrc_local
+
 を作成する. ローカルに必要な設定 ($PATH の指定など) があればここに記述する. 
 特に各環境毎に Zsh のプロンプトの色の設定を変えたいので, 
 以下のようにシェル変数を指定する. 
