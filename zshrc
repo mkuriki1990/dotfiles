@@ -177,6 +177,9 @@ zstyle ':completion:*' group-name ''
 ## 「~」や「=コマンド」などのファイル名展開を行う。
 setopt magic_equal_subst
 
+## beep 音を消す
+setopt no_beep
+
 ## 実行したプロセスの消費時間が3秒以上かかったら
 ## 自動的に消費時間の統計情報を表示する。
 REPORTTIME=3
