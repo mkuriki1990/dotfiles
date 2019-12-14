@@ -248,6 +248,44 @@ case ${OSTYPE} in
 		;;
 esac
 
+# crontab -r を無効化する設定
+# CRON が削除されてしまうご動作を防ぐ
+# 参考 : 危険な crontab -r を封印する - Qiita
+# https://qiita.com/kawaz/items/1620300551b5b3f2eccc
+function crontab() {
+  local opt
+  for opt in "$@"; do
+    if [[ $opt == -r ]]; then
+      echo 'crontab -r is sealed!'
+      return 1
+    fi
+  done
+  command crontab "$@"
+}
+# crontab -r を無効化する設定 終わり
+
+# 端末起動時に tmux を自動起動 / 選択するための設定
+# 参考 : [tmux] 端末起動時に自動で新規セッションを作成 or 既存セッションにアタッチ - Qiita
+# https://qiita.com/ssh0/items/a9956a74bff8254a606a
+# if [[ ! -n $TMUX && $- == *l* ]]; then
+# 	# get the IDs
+# 	ID="`tmux list-sessions`"
+# 	if [[ -z "$ID" ]]; then
+# 		tmux new-session
+# 	fi
+# 	create_new_session="Create New Session"
+# 	ID="$ID\n${create_new_session}:"
+# 	ID="`echo $ID | $PERCOL | cut -d: -f1`"
+# 	if [[ "$ID" = "${create_new_session}" ]]; then
+# 		tmux new-session
+# 	elif [[ -n "$ID" ]]; then
+# 		tmux attach-session -t "$ID"
+# 	else
+# 		:  # Start terminal normally
+# 	fi
+# fi
+# 端末起動時に tmux を自動起動 / 選択するための設定 終わり
+
 # マシンごとの設定を読み込む. zshrc_local が存在すれば読み込むし, なければ何もしない
 [ -f $CONFDIR/zshrc_local ] && source $CONFDIR/zshrc_local
 
