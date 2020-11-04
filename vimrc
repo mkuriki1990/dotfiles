@@ -178,6 +178,10 @@ set clipboard=unnamed,autoselect
 " yank の繰り返しを防ごう！
 vnoremap <silent> <C-p> "0p<CR>"
 
+" Undo を insert mode の CR や Space のタイミングで区切るようにする
+inoremap <expr> <CR> (&buftype =='')? "\<C-G>u\<CR>\<C-G>u" : "\<CR>"
+inoremap <expr> <Space> (&buftype =='')? "\<C-G>u\<Space>" : "\<Space>"
+
 " Lilypond のため
 filetype off
 set runtimepath+=/usr/share/lilypond/2.14.2/vim/
@@ -309,7 +313,7 @@ inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<S-TAB>"
 " ここまで
 
 " インデントに色をつけて見やすくする. 
-NeoBundle 'nathanaelkane/vim-indent-guides'
+" NeoBundle 'nathanaelkane/vim-indent-guides'
 
 " vim 起動時に自動的に vim-indent-guides をオンにする
 let g:indent_guides_enable_on_vim_startup = 1
@@ -322,4 +326,7 @@ filetype plugin indent on
 
 " 未インストールのプラグインがある場合に, 確認されるかどうか
 NeoBundleCheck
+
+" Y を行末までのヤンクに設定
+nnoremap Y y$
 
