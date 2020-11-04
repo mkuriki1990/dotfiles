@@ -150,6 +150,14 @@ let g:netrw_liststyle=3
 " オートタブ
 set autoindent
 
+" Y を行末までのヤンクに設定
+nnoremap Y y$
+
+" 行選択モードで選択して yank したあとにカーソル位置を元に戻す
+function! YRRunAfterMaps()
+    vmap y ygv<Esc>
+endfunction
+
 " ステータスバー関係
 set statusline=%F%m%r%h%w\ [FORMAT=%{&ff}]\ [TYPE=%Y]\ [ASCII=\%03.3b]\ [HEX=\%02.2B]\ [POS=%04l,%04v][%p%%]\ [LEN=%L]
 
