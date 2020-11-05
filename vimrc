@@ -155,7 +155,7 @@ nnoremap Y y$
 
 " 行選択モードで選択して yank したあとにカーソル位置を元に戻す
 function! YRRunAfterMaps()
-    vmap y ygv<Esc>
+    vnoremap y ygv<Esc>
 endfunction
 
 " ステータスバー関係
