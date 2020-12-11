@@ -245,6 +245,10 @@ case ${OSTYPE} in
 		# ここに Mac 向けの設定
         [ -f $CONFDIR/zshrc_darwin ] && source $CONFDIR/zshrc_darwin
 		;;
+	freebsd*)
+		# ここに Mac 向けの設定
+        [ -f $CONFDIR/zshrc_darwin ] && source $CONFDIR/zshrc_darwin
+		;;
 	linux*)
 		# ここに Linux 向けの設定
         [ -f $CONFDIR/zshrc_linux ] && source $CONFDIR/zshrc_linux
