@@ -384,3 +384,26 @@ precmd_functions=($precmd_functions update_prompt)
 #
 # プロンプトの表示設定おわり
 #######################
+
+#######################
+# ffmpeg で動画結合するための関数
+# ffmpeg-cat movie1.mp4 movie2.mp4 ... output.mp4
+# みたいな感じで使う
+#
+
+function ffmpeg-cat() {
+    tmpFile=$(mktemp)
+    outFile=${@:$#:1}
+
+    for files in ${@:1:$(($# - 1))}
+    do
+        echo 'file' $(realpath $files) >> $tmpFile
+    done
+
+    ffmpeg -f concat -i $tmpFile -c copy $outFile
+    rm $tmpFile
+}
+
+#
+# ffmpeg で動画結合するための関数 終わり
+#######################
