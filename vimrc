@@ -9,7 +9,8 @@ set laststatus=2
 runtime! debian.vim
 
 syntax on
-colorscheme murphy
+" colorscheme murphy
+colorscheme molokai
 
 " ファイルを開いたときに前の編集位置に戻る. 
 if has("autocmd")

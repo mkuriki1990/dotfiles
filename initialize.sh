@@ -9,6 +9,9 @@ ln -sf ~/.dotfiles/zshrc ~/.zshrc
 ln -sf ~/.dotfiles/tmux.conf ~/.tmux.conf
 
 mkdir -p ~/.cache/zsh
+mkdir -p ~/.vim/colors/molokai
+git clone https://github.com/tomasr/molokai ~/.vim/colors/molokai
+ln -sf ${HOME}/.vim/colors/molokai/colors/molokai.vim ${HOME}/.vim/colors/
 
 # 自動で設定ファイルを更新するためには以下のコマンド列を
 # crontab に登録すればよい (時間は任意)
