@@ -400,7 +400,7 @@ function ffmpeg-cat() {
         echo 'file' $(realpath $files) >> $tmpFile
     done
 
-    ffmpeg -f concat -i $tmpFile -c copy $outFile
+    ffmpeg -f concat -safe 0 -i $tmpFile -c copy $outFile
     rm $tmpFile
 }
 
