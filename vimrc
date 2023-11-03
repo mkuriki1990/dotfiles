@@ -111,7 +111,7 @@ set wildchar=<tab>
 
 " 文字コード認識
 set encoding=utf-8
-set fileencodings=iso2022-jp,euc-jp,sjis,utf-8
+set fileencodings=utf-8,iso2022-jp,euc-jp,sjis
 set fileformats=unix,dos,mac
 set fenc=utf-8
 
